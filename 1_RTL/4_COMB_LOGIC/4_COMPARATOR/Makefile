@@ -1,16 +1,20 @@
-clean:
+clean : 
 	rm -rf cds.lib hdl.var *.lib waves.shm *.log *.key *.dsn *.trn *.vcd \
-			.simvision .symbol* xcelium.d
-set:
+	.simvision .symbol* xcelium.d
+
+set :
 	touch cds.lib hdl.var
 	mkdir work.lib
 	echo "define work_lib ./work.lib" >> ./cds.lib
 	echo "define WORK work_lib" >> ./hdl.var
-compile:
+compile :
 	xmvlog -MESS -linedebug ./*v
-elab:
-	xmelab -MESS -access rwc tb_pipeline
-sim:
-	xmsim -MESS tb_pipeline -gui 
 
-all: clean set compile elab sim
+elab :
+	xmelab -MESS -access rwc tb_DECODER
+
+
+sim :
+	xmsim -MESS tb_DECODER -gui
+
+all : clean set compile elab sim
